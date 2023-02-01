@@ -20,6 +20,13 @@ Build each module like this:
     ./autogen.sh
     make
 
+test myfilter plugin
+
+``` 
+gst-launch-1.0  videotestsrc ! tee name=t ! queue ! myfilter ! autovideosink t. ! queue ! autovideosink 
+
+```
+
 Modify gst-plugin/src/Makefile.am to add or remove source files to build or
 add additional dependencies or compiler flags or change the name of the
 plugin file to be installed. Run ./autoregen.sh if changes don't take effect
