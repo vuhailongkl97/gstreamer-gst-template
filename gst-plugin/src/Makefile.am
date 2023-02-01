@@ -3,7 +3,7 @@
 ##############################################################################
 # TODO: change libgstplugin.la to something else, e.g. libmysomething.la     #
 ##############################################################################
-plugin_LTLIBRARIES = libgstplugin.la libgstaudiofilterexample.la
+plugin_LTLIBRARIES = libgstplugin.la libgstaudiofilterexample.la libgstmyfilter.la
 
 ##############################################################################
 # TODO: for the next set of variables, name the prefix if you named the .la, #
@@ -35,5 +35,16 @@ libgstaudiofilterexample_la_LIBADD = $(GST_LIBS)
 libgstaudiofilterexample_la_LDFLAGS = $(GST_PLUGIN_LDFLAGS)
 libgstaudiofilterexample_la_LIBTOOLFLAGS = --tag=disable-static
 
+## Plugin 3 (audio filter example)
+# sources used to compile this plug-in
+libgstmyfilter_la_SOURCES = gstmyfilter.c gstmyfilter.h
+
+# compiler and linker flags used to compile this myfilter, set in configure.ac
+libgstmyfilter_la_CFLAGS = $(GST_CFLAGS)
+libgstmyfilter_la_LIBADD = $(GST_LIBS)
+libgstmyfilter_la_LDFLAGS = $(GST_PLUGIN_LDFLAGS)
+libgstmyfilter_la_LIBTOOLFLAGS = --tag=disable-static
+
 # headers we need but don't want installed
-noinst_HEADERS = gstplugin.h
+noinst_HEADERS = gstmyfilter.h
+
