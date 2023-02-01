@@ -196,6 +196,16 @@ static GstFlowReturn
 gst_myfilter_transform_ip (GstBaseTransform * base, GstBuffer * outbuf)
 {
   Gstmyfilter *filter = GST_MYFILTER (base);
+  GstMapInfo map_out;
+
+  GST_LOG_OBJECT (filter, "transform buffer");
+
+    if (gst_buffer_map (outbuf, &map_out, GST_MAP_WRITE)) {
+      memset(map_out.data, 255, map_out.size);
+      gst_buffer_unmap (outbuf, &map_out);
+    }
+
+  return GST_FLOW_OK;
 
   //if (GST_CLOCK_TIME_IS_VALID (GST_BUFFER_TIMESTAMP (outbuf)))
   //  gst_object_sync_values (GST_OBJECT (filter), GST_BUFFER_TIMESTAMP (outbuf));
