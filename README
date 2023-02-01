@@ -19,10 +19,11 @@ Build each module like this:
     cd gst-plugin
     ./autogen.sh
     make
-
-test myfilter plugin
+	sudo cp src/.libs/libgstmyfilter.so /usr/lib/x86_64-linux-gnu/gstreamer-1.0/
+Test myfilter plugin
 
 ``` 
+
 gst-launch-1.0  videotestsrc ! tee name=t ! queue ! myfilter ! autovideosink t. ! queue ! autovideosink 
 
 ```
