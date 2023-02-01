@@ -90,7 +90,22 @@ static GstFlowReturn gst_myfilter_transform_ip (GstBaseTransform * base,
     GstBuffer * outbuf);
 
 /* GObject vmethod implementations */
+static gboolean
+ gst_myfilter_start(GstBaseTransform * btrans) {
+	g_print("go to myfilter start\n");
+	return TRUE;
+}
 
+static gboolean
+gst_myfilter_stop (GstBaseTransform * btrans) {
+	g_print("go to myfilter stop\n");
+	return TRUE;
+}
+static gboolean
+gst_myfilter_set_caps (GstBaseTransform * btrans, GstCaps * incaps,
+					       GstCaps * outcaps) {
+	return TRUE;
+}
 /* initialize the myfilter's class */
 static void
 gst_myfilter_class_init (GstmyfilterClass * klass)
@@ -119,6 +134,9 @@ gst_myfilter_class_init (GstmyfilterClass * klass)
   gst_element_class_add_pad_template (gstelement_class,
       gst_static_pad_template_get (&sink_template));
 
+  GST_BASE_TRANSFORM_CLASS(klass)->set_caps = GST_DEBUG_FUNCPTR (gst_myfilter_set_caps);
+  GST_BASE_TRANSFORM_CLASS(klass)->start = GST_DEBUG_FUNCPTR (gst_myfilter_start);
+  GST_BASE_TRANSFORM_CLASS(klass)->stop = GST_DEBUG_FUNCPTR (gst_myfilter_stop);
   GST_BASE_TRANSFORM_CLASS (klass)->transform_ip =
       GST_DEBUG_FUNCPTR (gst_myfilter_transform_ip);
 
@@ -185,8 +203,8 @@ gst_myfilter_transform_ip (GstBaseTransform * base, GstBuffer * outbuf)
 //  if (filter->silent == FALSE)
  //   g_print ("I'm plugged, therefore I'm in.\n");
   //gsize s = gst_buffer_get_size(outbuf);
-  g_print("%ld\n", outbuf->offset);
-  gst_buffer_set_size(outbuf, 1000);
+  //g_print("%ld\n", outbuf->offset);
+  //gst_buffer_set_size(outbuf, 1000);
   
   /* FIXME: do something interesting here.  This simply copies the source
    * to the destination. */
